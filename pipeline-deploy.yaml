@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: helloworld-deploy
+spec:
+  resources:
+  - name: app-git
+    type: git
+  - name: app-image
+    type: image
+  params:
+    - name: deploymentConfig
+      description: The application name i.e. OpenShift/Kubernetes Deployment name
+    - name: applicationSrcDir
+      description: The source directory of the application within the source repository
+  tasks:
+  - name: build
+    taskRef:
+      name: quarkus-jvm
+    params:
+      - name: tlsVerify
+        value: "false"
+      - name: contextDir
+        value: "${params.applicationSrcDir}"
+      # if you have different repository manager update the value below
+      # if don't wish to use nexus or repo manager then comment the name/value below
+      - name: mavenMirrorUrl
+        value: 'http://192.168.64.1:8081/nexus/content/groups/public'
+    resources:
+      inputs:
+      - name: source
+        resource: app-git
+      outputs:
+      - name: image
+        resource: app-image
+  - name: deploy
+    taskRef:
+      name: openshift-client
+    runAfter:
+      - build
+    params:
+    - name: ARGS
+      value: "run helloworld --image=${resources.outputs.image.url} --restart=Never"
