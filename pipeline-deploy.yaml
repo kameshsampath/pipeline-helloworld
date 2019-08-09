@@ -40,4 +40,12 @@ spec:
       - build
     params:
     - name: ARGS
-      value: "run helloworld --image=${resources.outputs.image.url} --restart=Never"
+      value: "run helloworld --image=dev.local/example/helloworld --image-pull-policy=Never --generator=deployment/apps.v1"
+  - name: expose
+    taskRef:
+      name: openshift-client
+    runAfter:
+      - build
+    params:
+    - name: ARGS
+      value: "expose deployments.apps helloworld --port=8080 --target-port=8080 --type=NodePort"
