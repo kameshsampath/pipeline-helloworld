@@ -1,22 +1,14 @@
----
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
 metadata:
-  name: build-robot
-  namespace: demos
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: build-robot-role-binding
-subjects:
-- kind: ServiceAccount
-  name: build-robot
-  namespace: demos
-roleRef:
-  kind: ClusterRole #this must be Role or ClusterRole
-  name: cluster-admin # this must match the name of the Role or ClusterRole you wish to bind to
-  apiGroup: rbac.authorization.k8s.io
+  name: git-source
+spec:
+  type: git
+  params: 
+  - name: url
+    value: https://github.com/kameshsampath/pipeline-helloworld
+  - name: revision
+    value: master
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
@@ -24,18 +16,6 @@ metadata:
   name: helloworld-image
 spec:
   type: image
-  params:
+  params: 
   - name: url
-    value: dev.local/example/helloworld
----
-apiVersion: tekton.dev/v1alpha1
-kind: PipelineResource
-metadata:
-  name: hello-git-source
-spec:
-  type: git
-  params:
-    - name: revision
-      value: master
-    - name: url
-      value: https://github.com/kameshsampath/pipeline-helloworld
+    value: "image-registry.openshift-image-registry.svc:5000/tutorial/helloworld"

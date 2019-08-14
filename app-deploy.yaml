@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: app-deploy
+spec:
+# Check https://github.com/tektoncd/pipeline/blob/master/docs/pipelines.md on how to define parameters
+#  params: 
+  resources: 
+  - name: app-source
+    type: git
+  - name: app-image
+    type: image
+  tasks: 
+   - name: build-java
+     taskRef:
+       name: build-app
+     params:
+      - name: contextDir
+        value: app
+      - name: mavenMirrorUrl
+        value: http://nexus:8081/nexus/content/groups/public
+     resources:
+      inputs:
+       - name: source
+         resource: app-source
+      outputs:
+       - name: builtImage
+         resource: app-image
+   - name: deploy-app
+     taskRef:
+       name: openshift-client
+     runAfter:
+      - build-java
+     params:
+      - name: ARGS
+        value: "run --image=image-registry.openshift-image-registry.svc:5000/tutorial/helloworld --image-pull-policy=Never --generator=deployment/apps.v1 helloworld"
