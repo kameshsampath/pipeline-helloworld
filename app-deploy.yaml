@@ -33,4 +33,6 @@ spec:
       - build-java
      params:
       - name: ARGS
-        value: "run --image=image-registry.openshift-image-registry.svc:5000/tutorial/helloworld --image-pull-policy=Never --generator=deployment/apps.v1 helloworld"
+        value: "run --image=dev.local/example/helloworld --image-pull-policy=Never --generator=deployment/apps.v1 helloworld"
+        # if you are OpenShift uncomment the line below.
+        #value: "run --image=image-registry.openshift-image-registry.svc:5000/tutorial/helloworld --image-pull-policy=Never --generator=deployment/apps.v1 helloworld"

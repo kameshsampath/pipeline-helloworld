@@ -18,4 +18,6 @@ spec:
   type: image
   params: 
   - name: url
-    value: "image-registry.openshift-image-registry.svc:5000/tutorial/helloworld"
+    value: "dev.local/example/helloworld"
+    # if you are on OpenShift uncomment the line below
+    #value: "image-registry.openshift-image-registry.svc:5000/tutorial/helloworld"
