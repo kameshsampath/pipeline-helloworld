@@ -5,7 +5,7 @@ The demo sources used as part of Red Hat DevNationLive Webinar **Plumbing Kubern
 ## Pre-req
 
 - A [Kubernetes cluster](https://kubernetes.io/docs/setup/learning-environment/minikube/) or [OpenShift](try.openshift.com) with [Tekton](https://tekton.dev) installed
-- If minikube have the internal container registry deployed; check [Registry Helpers](https://github.com/kameshsampath/minikube-helpers/registry)
+- If minikube have the internal container registry deployed; check [Registry Helpers](https://github.com/kameshsampath/minikube-helpers/tree/master/registry)
 - Download and add [Tekton CLI](https://github.com/tektoncd/cli) to the path
 
 ## Demo Sources
