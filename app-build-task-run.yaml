@@ -14,8 +14,9 @@ spec:
    params:
     - name: contextDir
       value: app
-    - name: mavenMirrorUrl
-      value: http://nexus:8081/nexus/content/groups/public
+    # Enable if you have maven mirrors to use
+    # - name: mavenMirrorUrl
+    #   value: http://nexus:8081/nexus/content/groups/public
   outputs:
    resources:
     - name: builtImage
