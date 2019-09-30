@@ -8,6 +8,10 @@ The demo sources used as part of Red Hat DevNationLive Webinar **Plumbing Kubern
 - If minikube have the internal container registry deployed; check [Registry Helpers](https://github.com/kameshsampath/minikube-helpers/tree/master/registry)
 - Download and add [Tekton CLI](https://github.com/tektoncd/cli) to the path
 
+[IMPORTANT]
+
+If you are tying to use local container registry for image build and push then its recommended to use minikube version v1.1.1 because of an existing container registry issue https://github.com/kubernetes/minikube/issues/4604
+
 ## Demo Sources
 
 The application uses a simple Java HelloWorld application built using [Quarkus](https://quarkus.io), https://github.com/kameshsampath/pipeline-helloworld

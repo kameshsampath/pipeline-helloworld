@@ -49,16 +49,7 @@ spec:
    - name: build-image
      image: quay.io/buildah/stable
      workingDir: "/workspace/source/${inputs.params.contextDir}"
-     command:
-      - buildah
-      - bud
-      - --tls-verify=false
-      - --layers
-      - -t
-      - "${inputs.params.destinationImage}"
-      - -f 
-      - "${inputs.params.dockerFile}"
-      - .
+     command: ['buildah', 'bud', '--tls-verify=false', '--layers','-f', '${inputs.params.dockerFile}', '-t', '${inputs.params.destinationImage}', '.']
      resources:
        limits:
          cpu: 4
@@ -74,12 +65,7 @@ spec:
    - name: build-push
      image: quay.io/buildah/stable
      workingDir: "/workspace/source/${inputs.params.contextDir}"
-     command:
-      - buildah
-      - push
-      - --tls-verify=false
-      - "${inputs.params.destinationImage}"
-      - "docker://${inputs.params.destinationImage}"
+     command: ["buildah","push", "--tls-verify=false","${inputs.params.destinationImage}","docker://${inputs.params.destinationImage}"]
      securityContext:
        privileged: true
      volumeMounts:

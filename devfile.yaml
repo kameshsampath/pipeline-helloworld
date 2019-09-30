@@ -13,13 +13,13 @@ components:
     type: chePlugin
   - id: redhat/java8/latest
     type: chePlugin
-  # Tool that allows to build java application including Quarkus
-  - alias: tools
-    type: kubernetes
-    mountSources: true
-    reference: https://raw.githubusercontent.com/redhat-developer-demos/guru-night/master/component-images.yaml
-    selector:
-      app: tutorial-tools
+  # # Tool that allows to build java application including Quarkus
+  # - alias: tools
+  #   type: kubernetes
+  #   mountSources: true
+  #   reference: https://raw.githubusercontent.com/redhat-developer-demos/guru-night/master/component-images.yaml
+  #   selector:
+  #     app: tutorial-tools
   - alias: container-tools
     type: kubernetes
     reference: https://raw.githubusercontent.com/redhat-developer-demos/guru-night/master/component-images.yaml
